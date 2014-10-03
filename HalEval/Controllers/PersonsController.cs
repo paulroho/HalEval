@@ -16,7 +16,14 @@ namespace HalEval.Controllers
 
         public PersonRepresentation GetAPerson(int id)
         {
-            return new PersonRepresentation(){Name = "Paul"};
+            return new PersonRepresentation
+            {
+                Name = "Paul",
+                Address = new AddressRepresentation
+                {
+                    Street = "Otto-Bondy-Platz"
+                }
+            };
         }
     }
 }

@@ -44,6 +44,22 @@ namespace HalEval.Tests
             Assert.AreEqual(selfHref, selfHrefFromSelf);
         }
 
+        [TestMethod]
+        public void GetAPerson_Address_ReturnsTheAddress()
+        {
+            var personRep = GetObjectFromService("api/Persons/1");
+
+            var addressLink = personRep["_links"]["address"];
+            Assert.IsNotNull(addressLink, "There should be an address link");
+            var addressHref = addressLink["href"];
+            var addressHrefString = (string)addressHref;
+
+            var addressFromLink = GetObjectFromService(addressHrefString);
+            var street = addressFromLink["street"];
+
+            Assert.AreEqual("Otto-Bondy-Platz", street);
+        }
+
         private JObject GetObjectFromService(string uri)
         {
             var response = _client.GetAsync(uri).Result;
